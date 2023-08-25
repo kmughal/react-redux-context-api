@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import reactDom from 'react-dom/client';
 import { Main2 } from './component/Main2';
 import { Provider } from 'react-redux';
@@ -11,9 +11,18 @@ const elThatUsesContextApi = document.getElementById('root-context');
 const elThatUsesReduxApi = document.getElementById('root-redux');
 
 const App = () => {
+    const ref = useRef(null);
+    const apiRef = useRef(null);
+
     return <Provider store={store}>
         <h1>This is using React Redux toolkit</h1>
-        <Main />
+        <button onClick={() => {
+            ref.current.focus();
+        }}>Forward Reference:</button>
+        <button onClick={() => {
+            console.log(apiRef.current.getWeatherData());
+        }}>useImperativeHandler hook:</button>
+        <Main textButtonRef={ref} api={apiRef} />
     </Provider>
 }
 
